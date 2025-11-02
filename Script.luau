@@ -141,3 +141,40 @@ end
 wait()
 end
 end)
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "FPS_UI"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = game.CoreGui
+
+local Shadow = Instance.new("Frame")
+Shadow.Size = UDim2.new(0, 150, 0, 25)
+Shadow.Position = UDim2.new(0.625, 0, 0, -50)
+Shadow.BackgroundTransparency = 1
+Shadow.Parent = ScreenGui
+
+local Text = Instance.new("TextLabel", Shadow)
+Text.Size = UDim2.new(1,0,1,0)
+Text.Text = "FPS : 60 | Ping : 50"
+Text.Font = "SourceSansBold"
+Text.BackgroundTransparency = 1
+Text.TextSize = "20"
+Text.TextColor3 = Color3.new(1,1,1)
+
+local US = Instance.new("UIStroke", Shadow)
+US.Color = Color3.new(1,1,1)
+local UT = Instance.new("UIStroke", Text)
+local CS = Instance.new("UICorner", Shadow)
+
+local FrameTimer = tick()
+local FrameCounter = 0;
+local FPS = 60;
+game:GetService('RunService').RenderStepped:Connect(function()
+	FrameCounter += 1;
+	if (tick() - FrameTimer) >= 1 then
+		FPS = FrameCounter;
+		FrameTimer = tick();
+		FrameCounter = 0;
+	end;
+Text.Text = tostring("FPS : %s | Ping : %s", math.floor(FPS), math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue()))
+end)
