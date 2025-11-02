@@ -65,33 +65,33 @@ for _,v in ipairs(workspace.Map.Ingame:GetDescendants()) do
 end
 
 workspace.Map.Ingame.Map.DescendantAdded:Connect(function(v)
-    if v.Name == "Generator" then
+    if v.Name == "Generator" and v then
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color.Generator
     end
   end)
 workspace.Players.DescendantAdded:Connect(function(v)
-    if v.Parent.Name == "Killers" then
+    if v.Parent.Name == "Killers" and v then
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color.Killers
-    elseif v.Parent.Name == "Survivors" then
+    elseif v.Parent.Name == "Survivors" and v then
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color.Survivors
     end
   end)
 workspace.Map.Ingame.DescendantAdded:Connect(function(v)
-    if v.Name == "Medkit" then
+    if v.Name == "Medkit" and v then
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color.Medkit
-    elseif v.Name == "BloxyCola" then
+    elseif v.Name == "BloxyCola" and v then
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color["Bloxy Cola"]
-    elseif v.Name == "SubspaceTripmine" then
+    elseif v.Name == "SubspaceTripmine" and v then
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color["Subspace Tripmine"]
@@ -103,12 +103,12 @@ StaminaScript.MaxStamina = Players["Max Stamina"]
 StaminaScript.StaminaGain = Players["Stamina Gain"]
 StaminaScript.StaminaLoss = Players["Stamina Loss"]
 for _,v in pairs(workspace.Players.Survivors:GetChildren()) do
-if v.Parent.Name == "Survivors" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+if v.Parent.Name == "Survivors" and v and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
 StaminaScript.SprintSpeed = Players["Sprint Speed"].Survivor
 end
 end
 for _,v in pairs(workspace.Players.Killers:GetChildren()) do
-if v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+if v.Parent.Name == "Killers" and v and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
 StaminaScript.SprintSpeed = Players["Sprint Speed"].Killers
 end
 end
