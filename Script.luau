@@ -11,7 +11,7 @@ local Players = {
   ["Stamina Gain"] = 5000,
   ["Stamina Loss"] = 0.1,
   ["Sprint Speed"] = {
-    Killer = 28.75,
+    Killer = 29,
     Survivor = 28.5
   }
 }
@@ -97,5 +97,19 @@ workspace.Map.Ingame.DescendantAdded:Connect(function(v)
     h.OutlineColor = Color["Subspace Tripmine"]
     end
   end)
-
-
+StaminaScript = require(game:GetService("ReplicatedStorage").Systems.Character.Game.Sprinting)
+game:GetService("RunService").RenderStepped:Connect(function()
+StaminaScript.MaxStamina = Players["Max Stamina"]
+StaminaScript.StaminaGain = Players["Stamina Gain"]
+StaminaScript.StaminaLoss = Players["Stamina Loss"]
+for _,v in pairs(workspace.Players.Survivors:GetChildren()) do
+if v.Parent.Name == "Survivors" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+StaminaScript.SprintSpeed = Players["Sprint Speed"].Survivor
+end
+end
+for _,v in pairs(workspace.Players.Killers:GetChildren()) do
+if v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+StaminaScript.SprintSpeed = Players["Sprint Speed"].Killers
+end
+end
+end)
