@@ -7,6 +7,7 @@ local Color = {
   ["Subspace Tripmine"] = Color3.fromRGB(255,0,150),
 }
 local Players = {
+  ["Field Of View"] = 100,
   ["Max Stamina"] = 5000,
   ["Stamina Gain"] = 5000,
   ["Stamina Loss"] = 0.1,
@@ -15,7 +16,7 @@ local Players = {
     Survivor = 28.5
   }
 }
-local Effect = {
+local EffectFile = {
   "Burning",
   "Hallucination",
   "Hemorrhage",
@@ -99,6 +100,7 @@ workspace.Map.Ingame.DescendantAdded:Connect(function(v)
   end)
 StaminaScript = require(game:GetService("ReplicatedStorage").Systems.Character.Game.Sprinting)
 game:GetService("RunService").RenderStepped:Connect(function()
+workspace.CurrentCamera.FieldOfView = Players["Field Of View"]
 StaminaScript.MaxStamina = Players["Max Stamina"]
 StaminaScript.StaminaGain = Players["Stamina Gain"]
 StaminaScript.StaminaLoss = Players["Stamina Loss"]
@@ -111,5 +113,31 @@ for _,v in pairs(workspace.Players.Killers:GetChildren()) do
 if v.Parent.Name == "Killers" and v and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
 StaminaScript.SprintSpeed = Players["Sprint Speed"].Killers
 end
+end
+end)
+for _, v in ipairs(game.ReplicatedStorage.Modules.StatusEffects:GetDescendants()) do
+if v.Name == EffectFile and v then
+v:Destroy()
+end
+end
+task.spawn(function()
+while true do
+if AutoGenerator.Auto and not AutoGenerator.FixWhenShow then
+wait(4)
+for _,v in ipairs(workspace.Map.Ingame.Map:GetChildren()) do
+if v.Name == "Generator" then
+v.Remotes.RE:FireServer()
+end
+end
+end
+if AutoGenerator.Auto and AutoGenerator.FixWhenShow and game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PuzzleUI") then
+wait(4)
+for _,v in ipairs(workspace.Map.Ingame.Map:GetChildren()) do
+if v.Name == "Generator" then
+v.Remotes.RE:FireServer()
+end
+end
+end
+wait()
 end
 end)
