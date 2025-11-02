@@ -26,7 +26,7 @@ local EffectFile = {
   "Subspaced"
 }
 local AutoGenerator = {
-  Delay = 3.75,
+  Delay = 4,
   Auto = true,
   FixWhenShow = true
 }
@@ -123,7 +123,7 @@ end
 task.spawn(function()
 while true do
 if AutoGenerator.Auto and not AutoGenerator.FixWhenShow then
-wait(4)
+wait(AutoGenerator.Delay)
 for _,v in ipairs(workspace.Map.Ingame.Map:GetChildren()) do
 if v.Name == "Generator" then
 v.Remotes.RE:FireServer()
@@ -131,7 +131,7 @@ end
 end
 end
 if AutoGenerator.Auto and AutoGenerator.FixWhenShow and game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PuzzleUI") then
-wait(4)
+wait(AutoGenerator.Delay)
 for _,v in ipairs(workspace.Map.Ingame.Map:GetChildren()) do
 if v.Name == "Generator" then
 v.Remotes.RE:FireServer()
