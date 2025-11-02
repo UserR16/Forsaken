@@ -37,15 +37,12 @@ for _,v in ipairs(workspace.Map.Ingame.Map:GetDescendants()) do
     h.OutlineColor = Color.Generator
   end
 end
-for _,v in ipairs(workspace.Players.Killers:GetDescendants()) do
-  if v.Name == "Killers" then
+for _,v in ipairs(workspace.Players:GetDescendants()) do
+  if v.Parent.Name == "Killers" then
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color.Killers
-  end
-end
-for _,v in ipairs(workspace.Players.Survivors:GetDescendants()) do
-  if v.Name == "Survivors" then
+    elseif v.Parent.Name == "Survivors" then
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color.Survivors
@@ -56,21 +53,15 @@ for _,v in ipairs(workspace.Map.Ingame:GetDescendants()) do
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color.Medkit
-  end
-end
-for _,v in ipairs(workspace.Map.Ingame:GetDescendants()) do
-  if v.Name == "BloxyCola" then
+    elseif v.Name == "BloxyCola" then
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color["Bloxy Cola"]
-  end
-end
-for _,v in ipairs(workspace.Map.Ingame:GetDescendants()) do
-  if v.Name == "SubspaceTripmine" then
+    elseif v.Name == "SubspaceTripmine" then
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color["Subspace Tripmine"]
-  end
+    end
 end
 
 workspace.Map.Ingame.Map.DescendantAdded:Connect(function(v)
@@ -80,12 +71,12 @@ workspace.Map.Ingame.Map.DescendantAdded:Connect(function(v)
     h.OutlineColor = Color.Generator
     end
   end)
-workspace.Players.Killers.DescendantAdded:Connect(function(v)
-    if v.Name == "Killers" then
+workspace.Players.DescendantAdded:Connect(function(v)
+    if v.Parent.Name == "Killers" then
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color.Killers
-    elseif v.Name == "Survivors" then
+    elseif v.Parent.Name == "Survivors" then
     local h = Instance.new("Highlight",v)
     h.FillTransparency = 1
     h.OutlineColor = Color.Survivors
