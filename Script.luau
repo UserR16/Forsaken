@@ -1,3 +1,12 @@
+local Modules = game:GetService("ReplicatedStorage"):WaitForChild("Modules")
+local Effects = Modules:WaitForChild("Schematics"):WaitForChild("StatusEffects")
+local KillerEffect = Effects:WaitForChild("KillerExclusive")
+local SurvivorEffect = Effects:WaitForChild("SurvivorExclusive")
+local PlayersGame = workspace:WaitForChild("Players")
+local Killers = PlayersGame:WaitForChild("Killers")
+local Survivors = PlayersGame:WaitForChild("Survivors")
+local Ingame = workspace:WaitForChild("Map"):WaitForChild("Ingame")
+local RunService = game:GetService("RunService")
 local Color = {
   Generator = Color3.fromRGB(0,0,255),
   Killers = Color3.fromRGB(255,0,0),
@@ -115,11 +124,19 @@ StaminaScript.SprintSpeed = Players["Sprint Speed"].Killers
 end
 end
 end)
-for _, v in ipairs(game.ReplicatedStorage.Modules.StatusEffects:GetDescendants()) do
-if v.Name == EffectFile and v then
-v:Destroy()
+if KillerEffect:FindFirstChild("Glitched") then
+KillerEffect.Glitched.Parent = Folder
 end
+if Effects:FindFirstChild("Blindness") then
+Effects.Blindness.Parent = Folder
 end
+if SurvivorEffect:FindFirstChild("Subspaced") then
+SurvivorEffect.Subspaced.Parent = Folder
+end
+if KillerEffect:FindFirstChild("Hallucination") then
+KillerEffect.Hallucination.Parent = Folder
+end
+
 task.spawn(function()
 while true do
 if AutoGenerator.Auto and not AutoGenerator.FixWhenShow then
